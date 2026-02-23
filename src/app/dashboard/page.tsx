@@ -21,7 +21,7 @@ const Home = () => {
     const [isEditing, setIsEditing] = useState(false);
 
     const [currentPage, setCurrentPage] = useState(1);
-    const [rowsPerPage, setRowsPerPage] = useState(5);
+    const [rowsPerPage, setRowsPerPage] = useState(10);
 
     useEffect(() => {
         setCurrentPage(1);
@@ -82,82 +82,99 @@ const Home = () => {
     };
 
     return (
-        <div>
-            <div className="flex items-center justify-center bg-white border-b border-gray-200 py-3">
-                <div className="basis-1/4">
+        <div className="min-h-screen bg-gray-100 flex flex-col">
+            <div className="flex flex-col md:flex-row items-center justify-between bg-white border-b border-gray-200 py-3 px-4 md:px-8 gap-4 md:gap-0">
+                <div className="w-full md:basis-1/4 flex justify-center md:justify-start">
                     <Header />
                 </div>
-                <div className="basis-3/4">
-                    <SearchInput value={searchText} onChange={(e: any) => setSearchText(e.target.value)} placeholder="Search..." />
+                <div className="w-full md:basis-3/4 flex justify-center md:justify-end">
+                    <div className="w-full max-w-lg">
+                        <SearchInput value={searchText} onChange={(e: any) => setSearchText(e.target.value)} placeholder="Search..." />
+                    </div>
                 </div>
             </div>
-            <div className="mx-auto bg-gray-100 py-3 px-6 shadow rounded">
-                <h1 className="text-2xl font-bold mr-auto text-black">Articles</h1>
-                <div className="flex gap-4 py-4 justify-between items-center">
-                    <select
-                        value={filter}
-                        onChange={(e) => setFilter(e.target.value)}
-                        className="border p-2 rounded text-black border-gray-300"
-                    >
-                        <option value="all">All</option>
-                        <option value="published">Published</option>
-                        <option value="unpublished">Unpublished</option>
-                    </select>
-                    <Button onClick={openNewArticle}>+ ADD ARTICLE</Button>
+
+            <div className="flex-1 w-full mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                <div className="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center mb-6">
+                    <h1 className="text-2xl font-bold text-black">Articles</h1>
+                    <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+                        <select
+                            value={filter}
+                            onChange={(e) => setFilter(e.target.value)}
+                            className="border p-2 rounded text-black border-gray-300 w-full sm:w-auto"
+                        >
+                            <option value="all">All</option>
+                            <option value="published">Published</option>
+                            <option value="unpublished">Unpublished</option>
+                        </select>
+                        <Button onClick={openNewArticle}>+ ADD ARTICLE</Button>
+                    </div>
                 </div>
 
-                <table className="w-full border-collapse text-black">
-                    <thead>
-                        <tr className="border bg-white text-left border-gray-400">
-                            <th className="p-5">Article Headline</th>
-                            <th className="p-5">Author</th>
-                            <th className="p-5">Publish Date</th>
-                            <th className="p-5 text-center">Published</th>
-                            <th className="p-5 text-center"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {paginatedArticles.map((article) => (
-                            <tr
-                                key={article.id}
-                                onClick={() => openViewArticle(article)}
-                                className="border hover:bg-gray-100 cursor-pointer border-gray-400"
-                            >
-                                <td className="p-5">{article.headline}</td>
-                                <td className="p-5">{article.author}</td>
-                                <td className="p-5">{article.publishDate}</td>
-                                <td className="p-5">
-                                    <div className="flex justify-center">
-                                        <ToggleSwitch
-                                            isOn={article.published}
-                                            onToggle={(e: any) => {
-                                                e.stopPropagation();
-                                                handleTogglePublish(article.id);
-                                            }}
-                                        />
-                                    </div>
-                                </td>
-                                <td className="p-4 text-right">
-                                    <ActionMenu
-                                        onView={() => openViewArticle(article)}
-                                        onEdit={() => openEditArticle(article)}
-                                        onDelete={() => handleDeleteArticle(article.id)}
-                                    />
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-                <TablePagination
-                    totalCount={filteredArticles.length}
-                    currentPage={currentPage}
-                    rowsPerPage={rowsPerPage}
-                    onPageChange={setCurrentPage}
-                    onRowsPerPageChange={(newRows) => {
-                        setRowsPerPage(newRows);
-                        setCurrentPage(1);
-                    }}
-                />
+                <div className="bg-white shadow rounded overflow-hidden">
+                    <div className="overflow-x-auto">
+                        <table className="w-full border-collapse text-black min-w-[800px]">
+                            <thead>
+                                <tr className="border-b bg-gray-50 text-left border-gray-300">
+                                    <th className="p-5 font-semibold">Article Headline</th>
+                                    <th className="p-5 font-semibold">Author</th>
+                                    <th className="p-5 font-semibold">Publish Date</th>
+                                    <th className="p-5 font-semibold text-center">Published</th>
+                                    <th className="p-5"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {paginatedArticles.map((article) => (
+                                    <tr
+                                        key={article.id}
+                                        onClick={() => openViewArticle(article)}
+                                        className="border-b hover:bg-gray-100 cursor-pointer border-gray-300 bg-white transition-colors"
+                                    >
+                                        <td className="p-5">{article.headline}</td>
+                                        <td className="p-5">{article.author}</td>
+                                        <td className="p-5 whitespace-nowrap">{article.publishDate}</td>
+                                        <td className="p-5">
+                                            <div className="flex justify-center">
+                                                <ToggleSwitch
+                                                    isOn={article.published}
+                                                    onToggle={(e: any) => {
+                                                        e.stopPropagation();
+                                                        handleTogglePublish(article.id);
+                                                    }}
+                                                />
+                                            </div>
+                                        </td>
+                                        <td className="p-4 text-right">
+                                            <ActionMenu
+                                                onView={() => openViewArticle(article)}
+                                                onEdit={() => openEditArticle(article)}
+                                                onDelete={() => handleDeleteArticle(article.id)}
+                                            />
+                                        </td>
+                                    </tr>
+                                ))}
+                                {paginatedArticles.length === 0 && (
+                                    <tr>
+                                        <td colSpan={5} className="p-8 text-center text-gray-500">
+                                            No articles found.
+                                        </td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <TablePagination
+                        totalCount={filteredArticles.length}
+                        currentPage={currentPage}
+                        rowsPerPage={rowsPerPage}
+                        onPageChange={setCurrentPage}
+                        onRowsPerPageChange={(newRows) => {
+                            setRowsPerPage(newRows);
+                            setCurrentPage(1);
+                        }}
+                    />
+                </div>
             </div>
 
             <AsidePanel

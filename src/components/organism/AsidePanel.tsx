@@ -56,8 +56,9 @@ const AsidePanel = ({ isOpen, onClose, article, isEditing, onSave, onEditClick }
 
             <div className="flex flex-col gap-4 flex-1">
                 <div>
-                    <label className="block text-sm font-bold mb-1 text-gray-500">Headline *</label>
+                    <label htmlFor='headline' className="block text-sm font-bold mb-1 text-gray-500">Headline *</label>
                     <input
+                        id="headline"
                         type="text"
                         value={headline}
                         onChange={(e) => setHeadline(e.target.value)}
@@ -67,8 +68,9 @@ const AsidePanel = ({ isOpen, onClose, article, isEditing, onSave, onEditClick }
                 </div>
 
                 <div>
-                    <label className="block text-sm font-bold mb-1 text-gray-500">Author *</label>
+                    <label htmlFor='author' className="block text-sm font-bold mb-1 text-gray-500">Author *</label>
                     <input
+                        id="author"
                         type="text"
                         value={author}
                         onChange={(e) => setAuthor(e.target.value)}
@@ -78,8 +80,9 @@ const AsidePanel = ({ isOpen, onClose, article, isEditing, onSave, onEditClick }
                 </div>
 
                 <div>
-                    <label className="block text-sm font-bold mb-1 text-gray-500">Publication Date *</label>
+                    <label htmlFor='date' className="block text-sm font-bold mb-1 text-gray-500">Publication Date *</label>
                     <input
+                        id="date"
                         type="date"
                         value={date}
                         onChange={(e) => setDate(e.target.value)}
@@ -89,8 +92,9 @@ const AsidePanel = ({ isOpen, onClose, article, isEditing, onSave, onEditClick }
                 </div>
 
                 <div>
-                    <label className="block text-sm font-bold mb-1 text-gray-500">Body *</label>
+                    <label htmlFor='body' className="block text-sm font-bold mb-1 text-gray-500">Body *</label>
                     <textarea
+                        id="body"
                         value={body}
                         onChange={(e) => setBody(e.target.value)}
                         readOnly={isReadOnly}
