@@ -83,31 +83,36 @@ const Home = () => {
 
     return (
         <div className="min-h-screen bg-gray-100 flex flex-col">
-            <div className="flex flex-col md:flex-row items-center justify-between bg-white border-b border-gray-200 py-3 px-4 md:px-8 gap-4 md:gap-0">
-                <div className="w-full md:basis-1/4 flex justify-center md:justify-start">
+            <div className="flex flex-col md:flex-row items-center bg-white border-b border-gray-200 w-full">
+                <div className="w-full md:basis-1/4 py-4 px-6 md:px-8 flex justify-start items-center">
                     <Header />
                 </div>
-                <div className="w-full md:basis-3/4 flex justify-center md:justify-end">
-                    <div className="w-full max-w-lg">
-                        <SearchInput value={searchText} onChange={(e: any) => setSearchText(e.target.value)} placeholder="Search..." />
-                    </div>
+                <div className="w-full md:basis-3/4 py-4 px-6 md:px-8 flex items-center border-t md:border-t-0 border-gray-100">
+                    <SearchInput
+                        value={searchText}
+                        onChange={(e: any) => setSearchText(e.target.value)}
+                        placeholder="Search"
+                    />
                 </div>
             </div>
 
             <div className="flex-1 w-full mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                <div className="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center mb-6">
-                    <h1 className="text-2xl font-bold text-black">Articles</h1>
-                    <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+                <div className="flex flex-col gap-5 mb-6">
+                    <h1 className="text-2xl font-bold text-gray-800">Articles</h1>
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 w-full">
                         <select
                             value={filter}
                             onChange={(e) => setFilter(e.target.value)}
-                            className="border p-2 rounded text-black border-gray-300 w-full sm:w-auto"
+                            className="border border-gray-300 p-2.5 rounded-md text-gray-700 bg-white w-full sm:w-48 focus:outline-none focus:border-blue-400"
                         >
                             <option value="all">All</option>
                             <option value="published">Published</option>
                             <option value="unpublished">Unpublished</option>
                         </select>
-                        <Button onClick={openNewArticle}>+ ADD ARTICLE</Button>
+
+                        <div className="w-full sm:w-auto">
+                            <Button onClick={openNewArticle}>+ ADD ARTICLE</Button>
+                        </div>
                     </div>
                 </div>
 
