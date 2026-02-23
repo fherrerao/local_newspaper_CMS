@@ -1,4 +1,4 @@
-export default function ToggleSwitch({ isOn, onToggle }: any) {
+const ToggleSwitch = ({ isOn, onToggle }: any) => {
     return (
         <div
             onClick={onToggle}
@@ -8,3 +8,5 @@ export default function ToggleSwitch({ isOn, onToggle }: any) {
         </div>
     );
 }
+
+export default ToggleSwitch;
