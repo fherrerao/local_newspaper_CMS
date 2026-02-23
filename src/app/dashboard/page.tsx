@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Article } from '@/types/article';
 import { initialArticles } from '@/data/initialArticle';
 import ToggleSwitch from '@/components/atoms/ToggleSwitch';
@@ -9,6 +9,7 @@ import SearchInput from '@/components/atoms/SearchInput';
 import AsidePanel from '@/components/organism/AsidePanel';
 import Button from '@/components/atoms/Buttons';
 import ActionMenu from '@/components/atoms/ActionMenu';
+import TablePagination from '@/components/atoms/TablePagination';
 
 const Home = () => {
     const [articles, setArticles] = useState<Article[]>(initialArticles);
@@ -19,6 +20,13 @@ const Home = () => {
     const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
     const [isEditing, setIsEditing] = useState(false);
 
+    const [currentPage, setCurrentPage] = useState(1);
+    const [rowsPerPage, setRowsPerPage] = useState(5);
+
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [searchText, filter]);
+
     const filteredArticles = articles.filter((article) => {
         const matchText = article.headline.toLowerCase().includes(searchText.toLowerCase());
         const matchFilter = filter === 'all'
@@ -26,6 +34,9 @@ const Home = () => {
             : filter === 'published' ? article.published : !article.published;
         return matchText && matchFilter;
     });
+
+    const startIndex = (currentPage - 1) * rowsPerPage;
+    const paginatedArticles = filteredArticles.slice(startIndex, startIndex + rowsPerPage);
 
     const handleTogglePublish = (id: string) => {
         const newArticles = articles.map(art => {
@@ -106,7 +117,7 @@ const Home = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {filteredArticles.map((article) => (
+                        {paginatedArticles.map((article) => (
                             <tr
                                 key={article.id}
                                 onClick={() => openViewArticle(article)}
@@ -137,6 +148,16 @@ const Home = () => {
                         ))}
                     </tbody>
                 </table>
+                <TablePagination
+                    totalCount={filteredArticles.length}
+                    currentPage={currentPage}
+                    rowsPerPage={rowsPerPage}
+                    onPageChange={setCurrentPage}
+                    onRowsPerPageChange={(newRows) => {
+                        setRowsPerPage(newRows);
+                        setCurrentPage(1);
+                    }}
+                />
             </div>
 
             <AsidePanel
