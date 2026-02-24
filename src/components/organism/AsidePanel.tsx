@@ -80,18 +80,6 @@ const AsidePanel = ({ isOpen, onClose, article, isEditing, onSave, onEditClick }
                 </div>
 
                 <div>
-                    <label htmlFor='date' className="block text-sm font-bold mb-1 text-gray-500">Publication Date *</label>
-                    <input
-                        id="date"
-                        type="date"
-                        value={date}
-                        onChange={(e) => setDate(e.target.value)}
-                        readOnly={isReadOnly}
-                        className="w-full border p-2 rounded text-gray-700 border-gray-300"
-                    />
-                </div>
-
-                <div>
                     <label htmlFor='body' className="block text-sm font-bold mb-1 text-gray-500">Body *</label>
                     <textarea
                         id="body"
@@ -99,6 +87,18 @@ const AsidePanel = ({ isOpen, onClose, article, isEditing, onSave, onEditClick }
                         onChange={(e) => setBody(e.target.value)}
                         readOnly={isReadOnly}
                         rows={4}
+                        className="w-full border p-2 rounded text-gray-700 border-gray-300"
+                    />
+                </div>
+
+                <div>
+                    <label htmlFor='date' className="block text-sm font-bold mb-1 text-gray-500">Publication Date *</label>
+                    <input
+                        id="date"
+                        type="date"
+                        value={date}
+                        onChange={(e) => setDate(e.target.value)}
+                        readOnly={isReadOnly}
                         className="w-full border p-2 rounded text-gray-700 border-gray-300"
                     />
                 </div>

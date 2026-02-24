@@ -8,8 +8,8 @@ import Header from '@/components/organism/Header';
 import SearchInput from '@/components/atoms/SearchInput';
 import AsidePanel from '@/components/organism/AsidePanel';
 import Button from '@/components/atoms/Buttons';
-import ActionMenu from '@/components/atoms/ActionMenu';
-import TablePagination from '@/components/atoms/TablePagination';
+import ActionMenu from '@/components/molecules/ActionMenu';
+import TablePagination from '@/components/molecules/TablePagination';
 
 const Home = () => {
     const [articles, setArticles] = useState<Article[]>(initialArticles);
