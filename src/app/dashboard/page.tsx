@@ -10,8 +10,13 @@ import AsidePanel from '@/components/organism/AsidePanel';
 import Button from '@/components/atoms/Buttons';
 import ActionMenu from '@/components/molecules/ActionMenu';
 import TablePagination from '@/components/molecules/TablePagination';
+import LiveSitePage from '../live_site/page';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+import { encode } from 'punycode';
 
 const Home = () => {
+    const router = useRouter();
     const [articles, setArticles] = useState<Article[]>(initialArticles);
     const [searchText, setSearchText] = useState('');
     const [filter, setFilter] = useState('all');
@@ -65,6 +70,8 @@ const Home = () => {
     };
 
     const openViewArticle = (article: Article) => {
+        router.push(`/live_site`);
+        localStorage.setItem('selectedArticle', JSON.stringify(article));
         setSelectedArticle(article);
         setIsEditing(false);
         setIsPanelOpen(true);
