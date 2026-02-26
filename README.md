@@ -41,7 +41,7 @@
 
 ## Live Demo
 
-Check this [Live Demo](https://budget-app.fly.dev/) of the page.
+Check this [Live Demo](https://localnewspapercms.vercel.app/dashboard/) of the page.
 
 <hr>
 
